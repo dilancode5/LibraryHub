@@ -1,0 +1,45 @@
+@model IEnumerable<LibraryHub.Models.Member>
+
+@{
+    ViewData["Title"] = "Üyeler";
+}
+
+<div class="page-header">
+    <div>
+        <h1 class="page-title">👤 Üyeler</h1>
+        <p class="page-subtitle">Üye iletişim bilgilerini ve kayıtlarını yönetin.</p>
+    </div>
+
+    <div class="page-actions">
+        <a asp-action="Create" class="btn btn-primary">➕ Yeni Üye</a>
+    </div>
+</div>
+
+<div class="table-card">
+    <table class="table table-hover align-middle">
+        <thead>
+            <tr>
+                <th>Ad Soyad</th>
+                <th>E-posta</th>
+                <th>Telefon</th>
+                <th class="text-end">İşlemler</th>
+            </tr>
+        </thead>
+        <tbody>
+@foreach (var item in Model) {
+            <tr>
+                <td class="fw-semibold">@item.FullName</td>
+                <td>@item.Email</td>
+                <td>@item.Phone</td>
+                <td>
+                    <div class="action-group justify-content-end">
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-sm">Düzenle</a>
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info btn-sm">Detay</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Sil</a>
+                    </div>
+                </td>
+            </tr>
+}
+        </tbody>
+    </table>
+</div>

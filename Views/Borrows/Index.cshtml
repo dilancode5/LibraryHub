@@ -1,0 +1,109 @@
+@model IEnumerable<LibraryHub.Models.Borrow>
+
+@{
+    ViewData["Title"] = "Ödünç İşlemleri";
+}
+
+<div class="page-header">
+    <div>
+        <h1 class="page-title">📖 Ödünç İşlemleri</h1>
+        <p class="page-subtitle">Aktif ödünçleri, iadeleri ve arama sonuçlarını yönetin.</p>
+    </div>
+
+    <div class="page-actions">
+        <a asp-action="Create" class="btn btn-primary">➕ Yeni Ödünç</a>
+    </div>
+</div>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+<form asp-action="Index" method="get" class="filter-card">
+    <div class="input-group">
+        <input type="text"
+               name="searchString"
+               value="@Context.Request.Query["searchString"]"
+               class="form-control"
+               placeholder="🔍 Kitap veya üye ara..." />
+
+        <button type="submit" class="btn btn-primary">
+            Ara
+        </button>
+
+        <a asp-action="Index" class="btn btn-secondary">
+            Temizle
+        </a>
+    </div>
+</form>
+
+<div class="table-card">
+    <table class="table table-hover align-middle">
+        <thead>
+            <tr>
+                <th>Kitap</th>
+                <th>Üye</th>
+                <th>Ödünç Tarihi</th>
+                <th>İade Tarihi</th>
+                <th>Durum</th>
+                <th class="text-end">İşlemler</th>
+            </tr>
+        </thead>
+
+        <tbody>
+@foreach (var item in Model)
+{
+            <tr>
+                <td class="fw-semibold">@item.Book!.Title</td>
+
+                <td>@item.Member!.FullName</td>
+
+                <td>@item.BorrowDate.ToString("dd.MM.yyyy")</td>
+
+                <td>
+                    @(item.ReturnDate?.ToString("dd.MM.yyyy") ?? "-")
+                </td>
+
+                <td>
+                    @if (item.IsReturned)
+                    {
+                        <span class="badge bg-success">✔ İade Edildi</span>
+                    }
+                    else if (item.ReturnDate.HasValue && item.ReturnDate.Value.Date < DateTime.Today)
+                    {
+                        <span class="badge bg-danger">⚠️ Gecikti</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-warning text-dark">📚 Ödünçte</span>
+                    }
+                </td>
+
+                <td>
+                    <div class="action-group justify-content-end">
+                    @if (!item.IsReturned)
+                    {
+                        <form asp-action="ReturnBook" method="post" class="d-inline">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="id" value="@item.Id" />
+
+                            <button type="submit" class="btn btn-success btn-sm">İade Et</button>
+                        </form>
+
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info btn-sm">Detay</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Sil</a>
+                    }
+                    else
+                    {
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info btn-sm">Detay</a>
+                    }
+                    </div>
+                </td>
+            </tr>
+}
+        </tbody>
+    </table>
+</div>

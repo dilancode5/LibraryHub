@@ -1,0 +1,50 @@
+@model LibraryHub.Models.Book
+
+@{
+    ViewData["Title"] = "Yeni Kitap";
+}
+
+<div class="page-header">
+    <div>
+        <h1 class="page-title">Yeni Kitap</h1>
+        <p class="page-subtitle">Kitap bilgilerini, kategorisini ve yazarını ekleyin.</p>
+    </div>
+</div>
+
+<div class="form-card">
+    <form asp-action="Create">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="mb-3">
+            <label asp-for="Title" class="form-label">Kitap Adı</label>
+            <input asp-for="Title" class="form-control" />
+            <span asp-validation-for="Title" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="CategoryId" class="form-label">Kategori</label>
+            <select asp-for="CategoryId" class="form-select" asp-items="ViewBag.CategoryId"></select>
+            <span asp-validation-for="CategoryId" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="AuthorId" class="form-label">Yazar</label>
+            <select asp-for="AuthorId" class="form-select" asp-items="ViewBag.AuthorId"></select>
+            <span asp-validation-for="AuthorId" class="text-danger"></span>
+        </div>
+
+        <div class="form-check mb-3">
+            <input class="form-check-input" asp-for="IsAvailable" />
+            <label class="form-check-label" asp-for="IsAvailable">Müsait</label>
+        </div>
+
+        <div class="action-group">
+            <button type="submit" class="btn btn-primary">Kaydet</button>
+            <a asp-action="Index" class="btn btn-secondary">Listeye Dön</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

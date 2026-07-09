@@ -1,0 +1,171 @@
+﻿@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="page-header">
+    <div>
+        <h1 class="page-title">📚 LibraryHub</h1>
+        <p class="page-subtitle">Kütüphane yönetim paneli</p>
+    </div>
+</div>
+
+<div class="row g-4">
+
+    <div class="col-md-3">
+        <a asp-controller="Books" asp-action="Index" class="text-decoration-none text-dark">
+           <div class="card text-center shadow-sm h-100 dashboard-card border-0">
+                <div class="card-body text-center">
+                    <h5 class="text-primary fw-semibold">📚 Kitaplar</h5>
+                    <h2 class="fw-bold">@ViewBag.BookCount</h2>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-md-3">
+        <a asp-controller="Authors" asp-action="Index" class="text-decoration-none text-dark">
+            <div class="card dashboard-card shadow-sm h-100 border-0">
+                <div class="card-body text-center">
+                    <h5 class="text-success fw-semibold">✍️ Yazarlar</h5>
+                    <h2 class="fw-bold">@ViewBag.AuthorCount</h2>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-md-3">
+        <a asp-controller="Categories" asp-action="Index" class="text-decoration-none text-dark">
+            <div class="card dashboard-card shadow-sm h-100 border-0">
+                <div class="card-body text-center">
+                    <h5 class="text-warning fw-semibold">🏷️ Kategoriler</h5>
+                    <h2 class="fw-bold">@ViewBag.CategoryCount</h2>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-md-3">
+        <a asp-controller="Members" asp-action="Index" class="text-decoration-none text-dark">
+            <div class="card dashboard-card shadow-sm h-100 border-0">
+                <div class="card-body text-center">
+                    <h5 class="text-info fw-semibold">👤 Üyeler</h5>
+                    <h2 class="fw-bold">@ViewBag.MemberCount</h2>
+                </div>
+            </div>
+        </a>
+    </div>
+
+</div>
+
+<div class="row g-4 mt-1">
+
+    <div class="col-md-6">
+        <a asp-controller="Books" asp-action="Index" class="text-decoration-none">
+            <div class="card shadow border-success dashboard-card border-0">
+                <div class="card-body text-center">
+                    <h4 class="text-success">✅ Müsait Kitap</h4>
+                    <h1 class="text-success">@ViewBag.AvailableBookCount</h1>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-md-6">
+        <a asp-controller="Borrows" asp-action="Index" class="text-decoration-none">
+            <div class="card shadow border-danger dashboard-card border-0">
+                <div class="card-body text-center">
+                    <h4 class="text-danger">📕 Aktif Ödünç</h4>
+                    <h1 class="text-danger">@ViewBag.ActiveBorrowCount</h1>
+                </div>
+            </div>
+        </a>
+    </div>
+
+</div>
+
+<div class="row mt-4">
+
+    <div class="col-md-4">
+        <a asp-controller="Books" asp-action="Index" class="text-decoration-none">
+            <div class="card border-success shadow text-center dashboard-card border-0">
+                <div class="card-body">
+                    <h5 class="text-success">✅ Müsait Kitap</h5>
+                    <h2 class="text-success">@ViewBag.AvailableBookCount</h2>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-md-4">
+        <a asp-controller="Borrows" asp-action="Index" class="text-decoration-none">
+            <div class="card border-warning shadow text-center dashboard-card border-0">
+                <div class="card-body">
+                    <h5 class="text-warning">📖 Aktif Ödünç</h5>
+                    <h2 class="text-warning">@ViewBag.ActiveBorrowCount</h2>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-md-4">
+        <a asp-controller="Borrows" asp-action="Index" class="text-decoration-none">
+            <div class="card border-danger shadow text-center dashboard-card border-0">
+                <div class="card-body">
+                    <h5 class="text-danger">✔ İade Edilen</h5>
+                    <h2 class="text-danger">@ViewBag.ReturnedBorrowCount</h2>
+                </div>
+            </div>
+        </a>
+    </div>
+
+</div>
+
+<div class="table-card mt-5">
+    <div class="px-3 py-3 border-bottom">
+        <h4 class="mb-0">📖 Son 5 Ödünç İşlemi</h4>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-hover align-middle">
+
+            <thead>
+                <tr>
+                    <th>Kitap</th>
+                    <th>Üye</th>
+                    <th>Ödünç Tarihi</th>
+                    <th>Durum</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                @foreach (var item in ViewBag.LastBorrows)
+                {
+                    <tr>
+
+                        <td>@item.Book.Title</td>
+
+                        <td>@item.Member.FullName</td>
+
+                        <td>@item.BorrowDate.ToString("dd.MM.yyyy")</td>
+
+                        <td>
+                            @if (item.IsReturned)
+                            {
+                                <span class="badge bg-success">İade Edildi</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-warning text-dark">Ödünçte</span>
+                            }
+                        </td>
+
+                    </tr>
+                }
+
+            </tbody>
+
+        </table>
+
+    </div>
+</div>

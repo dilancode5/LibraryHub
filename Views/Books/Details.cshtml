@@ -1,0 +1,46 @@
+@model LibraryHub.Models.Book
+
+@{
+    ViewData["Title"] = "Kitap Detayı";
+}
+
+<div class="page-header">
+    <div>
+        <h1 class="page-title">Kitap Detayı</h1>
+        <p class="page-subtitle">Seçili kitabın kayıt bilgileri.</p>
+    </div>
+    <div class="page-actions">
+        <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-warning">Düzenle</a>
+        <a asp-action="Index" class="btn btn-secondary">Listeye Dön</a>
+    </div>
+</div>
+
+<div class="detail-card">
+    <dl class="detail-list">
+        <div class="detail-row">
+            <dt class="detail-label">Kitap Adı</dt>
+            <dd class="detail-value mb-0">@Model?.Title</dd>
+        </div>
+        <div class="detail-row">
+            <dt class="detail-label">Kategori</dt>
+            <dd class="detail-value mb-0">@Model?.Category?.Name</dd>
+        </div>
+        <div class="detail-row">
+            <dt class="detail-label">Yazar</dt>
+            <dd class="detail-value mb-0">@Model?.Author?.FullName</dd>
+        </div>
+        <div class="detail-row">
+            <dt class="detail-label">Durum</dt>
+            <dd class="detail-value mb-0">
+                @if (Model?.IsAvailable == true)
+                {
+                    <span class="badge bg-success">Müsait</span>
+                }
+                else
+                {
+                    <span class="badge bg-danger">Ödünçte</span>
+                }
+            </dd>
+        </div>
+    </dl>
+</div>

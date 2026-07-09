@@ -1,0 +1,33 @@
+@model LibraryHub.Models.Member
+
+@{
+    ViewData["Title"] = "Üye Detayı";
+}
+
+<div class="page-header">
+    <div>
+        <h1 class="page-title">Üye Detayı</h1>
+        <p class="page-subtitle">Seçili üyenin iletişim bilgileri.</p>
+    </div>
+    <div class="page-actions">
+        <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-warning">Düzenle</a>
+        <a asp-action="Index" class="btn btn-secondary">Listeye Dön</a>
+    </div>
+</div>
+
+<div class="detail-card">
+    <dl class="detail-list">
+        <div class="detail-row">
+            <dt class="detail-label">Ad Soyad</dt>
+            <dd class="detail-value mb-0">@Model?.FullName</dd>
+        </div>
+        <div class="detail-row">
+            <dt class="detail-label">E-posta</dt>
+            <dd class="detail-value mb-0">@Model?.Email</dd>
+        </div>
+        <div class="detail-row">
+            <dt class="detail-label">Telefon</dt>
+            <dd class="detail-value mb-0">@Model?.Phone</dd>
+        </div>
+    </dl>
+</div>

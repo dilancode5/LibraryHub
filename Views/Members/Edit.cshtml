@@ -1,0 +1,46 @@
+@model LibraryHub.Models.Member
+
+@{
+    ViewData["Title"] = "Üyeyi Düzenle";
+}
+
+<div class="page-header">
+    <div>
+        <h1 class="page-title">Üyeyi Düzenle</h1>
+        <p class="page-subtitle">Üyenin iletişim bilgilerini güncelleyin.</p>
+    </div>
+</div>
+
+<div class="form-card">
+    <form asp-action="Edit">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="Id" />
+
+        <div class="mb-3">
+            <label asp-for="FullName" class="form-label">Ad Soyad</label>
+            <input asp-for="FullName" class="form-control" />
+            <span asp-validation-for="FullName" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Email" class="form-label">E-posta</label>
+            <input asp-for="Email" class="form-control" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Phone" class="form-label">Telefon</label>
+            <input asp-for="Phone" class="form-control" />
+            <span asp-validation-for="Phone" class="text-danger"></span>
+        </div>
+
+        <div class="action-group">
+            <button type="submit" class="btn btn-primary">Kaydet</button>
+            <a asp-action="Index" class="btn btn-secondary">Listeye Dön</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

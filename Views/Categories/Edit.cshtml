@@ -1,0 +1,34 @@
+@model LibraryHub.Models.Category
+
+@{
+    ViewData["Title"] = "Kategoriyi Düzenle";
+}
+
+<div class="page-header">
+    <div>
+        <h1 class="page-title">Kategoriyi Düzenle</h1>
+        <p class="page-subtitle">Kategori adını güncelleyin.</p>
+    </div>
+</div>
+
+<div class="form-card">
+    <form asp-action="Edit">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="Id" />
+
+        <div class="mb-3">
+            <label asp-for="Name" class="form-label">Kategori Adı</label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+
+        <div class="action-group">
+            <button type="submit" class="btn btn-primary">Kaydet</button>
+            <a asp-action="Index" class="btn btn-secondary">Listeye Dön</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

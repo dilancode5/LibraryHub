@@ -1,0 +1,52 @@
+@model LibraryHub.Models.Borrow
+
+@{
+    ViewData["Title"] = "Ödünç İşlemini Düzenle";
+}
+
+<div class="page-header">
+    <div>
+        <h1 class="page-title">Ödünç İşlemini Düzenle</h1>
+        <p class="page-subtitle">Kitap, üye ve iade bilgilerini güncelleyin.</p>
+    </div>
+</div>
+
+<div class="form-card">
+    <form asp-action="Edit">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="Id" />
+
+        <div class="mb-3">
+            <label asp-for="BookId" class="form-label">Kitap</label>
+            <select asp-for="BookId" class="form-select" asp-items="ViewBag.BookId"></select>
+            <span asp-validation-for="BookId" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="MemberId" class="form-label">Üye</label>
+            <select asp-for="MemberId" class="form-select" asp-items="ViewBag.MemberId"></select>
+            <span asp-validation-for="MemberId" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="BorrowDate" class="form-label">Ödünç Tarihi</label>
+            <input asp-for="BorrowDate" type="date" class="form-control" />
+            <span asp-validation-for="BorrowDate" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="ReturnDate" class="form-label">İade Tarihi</label>
+            <input asp-for="ReturnDate" type="date" class="form-control" />
+            <span asp-validation-for="ReturnDate" class="text-danger"></span>
+        </div>
+
+        <div class="action-group">
+            <button type="submit" class="btn btn-primary">Kaydet</button>
+            <a asp-action="Index" class="btn btn-secondary">Listeye Dön</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,50 @@
+@model LibraryHub.Models.Borrow
+
+@{
+    ViewData["Title"] = "Ödünç Detayı";
+}
+
+<div class="page-header">
+    <div>
+        <h1 class="page-title">Ödünç Detayı</h1>
+        <p class="page-subtitle">Seçili ödünç işleminin kayıt bilgileri.</p>
+    </div>
+    <div class="page-actions">
+        <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-warning">Düzenle</a>
+        <a asp-action="Index" class="btn btn-secondary">Listeye Dön</a>
+    </div>
+</div>
+
+<div class="detail-card">
+    <dl class="detail-list">
+        <div class="detail-row">
+            <dt class="detail-label">Kitap</dt>
+            <dd class="detail-value mb-0">@Model?.Book?.Title</dd>
+        </div>
+        <div class="detail-row">
+            <dt class="detail-label">Üye</dt>
+            <dd class="detail-value mb-0">@Model?.Member?.FullName</dd>
+        </div>
+        <div class="detail-row">
+            <dt class="detail-label">Ödünç Tarihi</dt>
+            <dd class="detail-value mb-0">@(Model == null ? "-" : Model.BorrowDate.ToString("dd.MM.yyyy"))</dd>
+        </div>
+        <div class="detail-row">
+            <dt class="detail-label">İade Tarihi</dt>
+            <dd class="detail-value mb-0">@(Model?.ReturnDate?.ToString("dd.MM.yyyy") ?? "-")</dd>
+        </div>
+        <div class="detail-row">
+            <dt class="detail-label">Durum</dt>
+            <dd class="detail-value mb-0">
+                @if (Model?.IsReturned == true)
+                {
+                    <span class="badge bg-success">İade Edildi</span>
+                }
+                else
+                {
+                    <span class="badge bg-warning text-dark">Ödünçte</span>
+                }
+            </dd>
+        </div>
+    </dl>
+</div>

@@ -1,0 +1,110 @@
+@model IEnumerable<LibraryHub.Models.Book>
+
+@{
+    ViewData["Title"] = "Kitaplar";
+}
+
+<div class="page-header">
+    <div>
+        <h1 class="page-title">📚 Kitaplar</h1>
+        <p class="page-subtitle">Kitap durumlarını, yazarlarını ve kategorilerini tek yerden izleyin.</p>
+    </div>
+
+    <div class="page-actions">
+        <a asp-action="Create" class="btn btn-primary">➕ Yeni Kitap</a>
+    </div>
+</div>
+
+<form asp-action="Index" method="get" class="filter-card">
+    <div class="row g-2">
+
+        <div class="col-md-5">
+            <input type="text"
+                   name="searchString"
+                   value="@Context.Request.Query["searchString"]"
+                   class="form-control"
+                   placeholder="🔍 Kitap ara..." />
+        </div>
+
+        <div class="col-md-4">
+            <select name="categoryId" class="form-select">
+                <option value="0">📂 Tüm Kategoriler</option>
+
+                @foreach (var category in ViewBag.Categories)
+                {
+                    if (Context.Request.Query["categoryId"] == category.Id.ToString())
+                    {
+                        <option value="@category.Id" selected>
+                            @category.Name
+                        </option>
+                    }
+                    else
+                    {
+                        <option value="@category.Id">
+                            @category.Name
+                        </option>
+                    }
+                }
+            </select>
+        </div>
+
+        <div class="col-md-3 d-flex gap-2">
+            <button type="submit" class="btn btn-primary flex-fill">
+                🔍 Ara / Filtrele
+            </button>
+
+            <a asp-action="Index" class="btn btn-secondary flex-fill">
+                Temizle
+            </a>
+        </div>
+
+    </div>
+</form>
+
+<div class="table-card">
+    <table class="table table-hover align-middle">
+        <thead>
+            <tr>
+                <th>Kitap</th>
+                <th>Kategori</th>
+                <th>Yazar</th>
+                <th>Durum</th>
+                <th class="text-end">İşlemler</th>
+            </tr>
+        </thead>
+
+        <tbody>
+@foreach (var item in Model)
+{
+        <tr>
+
+            <td class="fw-semibold">@item.Title</td>
+
+            <td>@item.Category!.Name</td>
+
+            <td>@item.Author!.FullName</td>
+
+            <td>
+                @if (item.IsAvailable)
+                {
+                    <span class="badge bg-success">Müsait</span>
+                }
+                else
+                {
+                    <span class="badge bg-danger">Ödünçte</span>
+                }
+            </td>
+
+            <td>
+                <div class="action-group justify-content-end">
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-sm">Düzenle</a>
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info btn-sm">Detay</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Sil</a>
+                </div>
+            </td>
+
+        </tr>
+}
+        </tbody>
+    </table>
+</div>

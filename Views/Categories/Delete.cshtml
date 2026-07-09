@@ -1,0 +1,29 @@
+@model LibraryHub.Models.Category
+
+@{
+    ViewData["Title"] = "Kategoriyi Sil";
+}
+
+<div class="page-header">
+    <div>
+        <h1 class="page-title">Kategoriyi Sil</h1>
+        <p class="page-subtitle">Bu kayıt silindikten sonra listeden kaldırılır.</p>
+    </div>
+</div>
+
+<div class="detail-card">
+    <div class="delete-warning mb-3">Bu kategoriyi silmek istediğinizden emin misiniz?</div>
+
+    <dl class="detail-list mb-3">
+        <div class="detail-row">
+            <dt class="detail-label">Kategori Adı</dt>
+            <dd class="detail-value mb-0">@Model.Name</dd>
+        </div>
+    </dl>
+
+    <form asp-action="Delete" class="action-group">
+        <input type="hidden" asp-for="Id" />
+        <button type="submit" class="btn btn-danger">Sil</button>
+        <a asp-action="Index" class="btn btn-secondary">Vazgeç</a>
+    </form>
+</div>

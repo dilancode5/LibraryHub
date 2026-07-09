@@ -1,0 +1,41 @@
+@model LibraryHub.Models.Borrow
+
+@{
+    ViewData["Title"] = "Ödünç Kaydını Sil";
+}
+
+<div class="page-header">
+    <div>
+        <h1 class="page-title">Ödünç Kaydını Sil</h1>
+        <p class="page-subtitle">Bu işlem yalnızca ödünç kayıt listesinden kaldırır.</p>
+    </div>
+</div>
+
+<div class="detail-card">
+    <div class="delete-warning mb-3">Bu ödünç kaydını silmek istediğinizden emin misiniz?</div>
+
+    <dl class="detail-list mb-3">
+        <div class="detail-row">
+            <dt class="detail-label">Kitap</dt>
+            <dd class="detail-value mb-0">@Model.Book?.Title</dd>
+        </div>
+        <div class="detail-row">
+            <dt class="detail-label">Üye</dt>
+            <dd class="detail-value mb-0">@Model.Member?.FullName</dd>
+        </div>
+        <div class="detail-row">
+            <dt class="detail-label">Ödünç Tarihi</dt>
+            <dd class="detail-value mb-0">@Model.BorrowDate.ToString("dd.MM.yyyy")</dd>
+        </div>
+        <div class="detail-row">
+            <dt class="detail-label">İade Tarihi</dt>
+            <dd class="detail-value mb-0">@(Model.ReturnDate?.ToString("dd.MM.yyyy") ?? "-")</dd>
+        </div>
+    </dl>
+
+    <form asp-action="Delete" class="action-group">
+        <input type="hidden" asp-for="Id" />
+        <button type="submit" class="btn btn-danger">Sil</button>
+        <a asp-action="Index" class="btn btn-secondary">Vazgeç</a>
+    </form>
+</div>

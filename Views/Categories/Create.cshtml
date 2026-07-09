@@ -1,0 +1,33 @@
+@model LibraryHub.Models.Category
+
+@{
+    ViewData["Title"] = "Yeni Kategori";
+}
+
+<div class="page-header">
+    <div>
+        <h1 class="page-title">Yeni Kategori</h1>
+        <p class="page-subtitle">Kitapları gruplamak için yeni bir kategori oluşturun.</p>
+    </div>
+</div>
+
+<div class="form-card">
+    <form asp-action="Create">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="mb-3">
+            <label asp-for="Name" class="form-label">Kategori Adı</label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+
+        <div class="action-group">
+            <button type="submit" class="btn btn-primary">Kaydet</button>
+            <a asp-action="Index" class="btn btn-secondary">Listeye Dön</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

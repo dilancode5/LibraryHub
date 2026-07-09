@@ -1,0 +1,37 @@
+@model LibraryHub.Models.Member
+
+@{
+    ViewData["Title"] = "Üyeyi Sil";
+}
+
+<div class="page-header">
+    <div>
+        <h1 class="page-title">Üyeyi Sil</h1>
+        <p class="page-subtitle">Bu kayıt silindikten sonra listeden kaldırılır.</p>
+    </div>
+</div>
+
+<div class="detail-card">
+    <div class="delete-warning mb-3">Bu üyeyi silmek istediğinizden emin misiniz?</div>
+
+    <dl class="detail-list mb-3">
+        <div class="detail-row">
+            <dt class="detail-label">Ad Soyad</dt>
+            <dd class="detail-value mb-0">@Model.FullName</dd>
+        </div>
+        <div class="detail-row">
+            <dt class="detail-label">E-posta</dt>
+            <dd class="detail-value mb-0">@Model.Email</dd>
+        </div>
+        <div class="detail-row">
+            <dt class="detail-label">Telefon</dt>
+            <dd class="detail-value mb-0">@Model.Phone</dd>
+        </div>
+    </dl>
+
+    <form asp-action="Delete" class="action-group">
+        <input type="hidden" asp-for="Id" />
+        <button type="submit" class="btn btn-danger">Sil</button>
+        <a asp-action="Index" class="btn btn-secondary">Vazgeç</a>
+    </form>
+</div>
