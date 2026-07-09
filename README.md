@@ -32,3 +32,5 @@ dotnet run
 
 - Kullanıcı adı: `admin`
 - Şifre: `admin123`
+
+- Projeyi çalıştırmak için .NET 10 SDK gereklidir.
