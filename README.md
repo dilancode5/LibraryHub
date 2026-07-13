@@ -26,7 +26,6 @@ dotnet build
 dotnet run
 ```
 
-> Not: Yerel veritabanı dosyası GitHub'a eklenmez. Uygulama ilk çalıştırmada SQLite veritabanını otomatik oluşturur.
 
 İlk çalıştırmada veritabanı otomatik oluşturulur. Varsayılan admin bilgileri:
 
